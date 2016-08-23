@@ -20,3 +20,6 @@ def sample():
     types_result = map(type, result)
     print result
     print types_result
+
+
+sample()
