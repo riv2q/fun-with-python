@@ -20,14 +20,8 @@ def sample():
     """sample of `all` usage
     """
     elements = [random.randint(1, 100) for x in xrange(10)]
-    _print_result(elements + ['text'])
-    _print_result(elements + [None])
-    _print_result(elements + [0])
-    _print_result(elements + [False])
-    _print_result(elements + [True])
-    _print_result(elements + [.2/3])
-    _print_result(elements + [2/3])
-    _print_result(elements + [object])
+    to_check = ['text', u'unicode',  None, 0, False, True, .2/3, 2/3, object]
+    map(_print_result, [elements + [el] for el in to_check])
 
 
 def _print_result(elements):
