@@ -23,13 +23,14 @@ class memorize(dict):
         return result
 
 
-def sample():
+def sample(volume=10, log=print):
     """sample of `bin` usage
     """
-    numbers = [random.randint(0, 100) for x in xrange(10)]
-    map(lambda x: print(bin(x), ' == ', convert_to_binary(x)), numbers)
-    print('result: {result}'.format(result='OK' if all(
-        [bin(n) == convert_to_binary(n) for n in numbers]) else 'BLAD'))
+    numbers = [random.randint(0, 100) for x in xrange(volume)]
+    results = map(lambda n: (bin(n), convert_to_binary(n)), numbers)
+    map(lambda r: log("\t == \t".join(r)), results)
+    log('result: {result}'.format(result='OK' if all(
+        [a == b for a, b in results]) else 'BLAD'))
 
 
 @memorize
@@ -43,4 +44,17 @@ def convert_to_binary(number):
     return '0b{binary}'.format(
         binary=''.join(map(str, binary_tab or [0])))
 
+
+def check_memorize():
+    """check if memorize function works
+    """
+    repeat, volume = 5, 15
+    for i in range(repeat):
+        sample(volume, log=lambda x: '')
+    count, less = repeat * volume, len(convert_to_binary)
+    print('tyle razy bez cache: {count}, tyle z: {less},'
+          ' oszczednosc: {res}'.format(
+              count=count, less=less, res=count-less))
+
 sample()
+check_memorize()
